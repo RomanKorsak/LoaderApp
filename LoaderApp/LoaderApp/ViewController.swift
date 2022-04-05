@@ -9,33 +9,47 @@ import NVActivityIndicatorView
 import NVActivityIndicatorViewExtended
 import UIKit
 
-class ViewController: UIViewController, NVActivityIndicatorViewable {
-    
+final class ViewController: UIViewController, NVActivityIndicatorViewable {
     let typesOfLoader: [String] = ["ballPulse", "ballSpinFadeLoader", "pacman", "circleStrokeSpin", "ballTrianglePath", "squareSpin"]
     
-    
-    
-    
     @IBOutlet var picker: UIPickerView!
+    @IBOutlet var textView: UITextView!
+    @IBOutlet var colorsSegmentControl: UISegmentedControl!
+    @IBOutlet var slider: UISlider!
     
-    @IBOutlet weak var textView: UITextView!
-    
-    @IBOutlet weak var colorsSegmentControl: UISegmentedControl!
-    
+    var widthAndHeightOfLoader: Int = 100
     var caseOfLoader: NVActivityIndicatorType = .ballDoubleBounce
     var textFromTextView: String = ""
     var colorOfLoader: UIColor = .red
+    @IBOutlet var sliderValueLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         picker.delegate = self
-        colorsSegmentControl.addTarget(self, action: #selector(self.changeColorOfLoader), for: .valueChanged)
+        colorsSegmentControl.addTarget(self, action: #selector(changeColorOfLoader), for: .valueChanged)
         colorsSegmentControl.selectedSegmentTintColor = .red
+        slider.minimumValue = 100
+        slider.maximumValue = 200
     }
     
+    @IBAction func buttonShowAnimation() {
+        textFromTextView = textView.text
+        
+        startAnimating(CGSize(width: widthAndHeightOfLoader, height: widthAndHeightOfLoader), message: textFromTextView, type: caseOfLoader, color: colorOfLoader, textColor: colorOfLoader) /* ,padding: <#T##CGFloat?#>, displayTimeThreshold: <#T##Int?#>, minimumDisplayTime: <#T##Int?#>, backgroundColor: <#T##UIColor?#>, , fadeInAnimation: <#T##FadeInAnimation?##FadeInAnimation?##(UIView) -> Void#>) */
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) { [weak self] in
+            self?.stopAnimating()
+        }
+    }
     
-    @objc func changeColorOfLoader(){
-        switch colorsSegmentControl.selectedSegmentIndex{
+    @IBAction func sliderAction() {
+        let value = Int(round(slider.value))
+        widthAndHeightOfLoader = value
+        sliderValueLabel.text = "\(widthAndHeightOfLoader)"
+    }
+    
+    @objc func changeColorOfLoader() {
+        switch colorsSegmentControl.selectedSegmentIndex {
         case 0:
             colorOfLoader = .red
         case 1:
@@ -52,19 +66,7 @@ class ViewController: UIViewController, NVActivityIndicatorViewable {
         colorsSegmentControl.selectedSegmentTintColor = colorOfLoader
     }
 
-    @IBAction func buttonShowAnimation() {
-        
-        textFromTextView = textView.text
-        
-        startAnimating( message: textFromTextView, type: caseOfLoader, color: colorOfLoader, textColor: colorOfLoader) /*,padding: <#T##CGFloat?#>, displayTimeThreshold: <#T##Int?#>, minimumDisplayTime: <#T##Int?#>, backgroundColor: <#T##UIColor?#>, , fadeInAnimation: <#T##FadeInAnimation?##FadeInAnimation?##(UIView) -> Void#>)*/
-        
-        
-        
-        
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) { [weak self] in
-            self?.stopAnimating()
-        }
-    }
+    
 }
 
 extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
@@ -81,8 +83,7 @@ extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        switch typesOfLoader[row]{
+        switch typesOfLoader[row] {
         case "ballPulse":
             caseOfLoader = .ballPulse
         case "ballSpinFadeLoader":
@@ -98,6 +99,5 @@ extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         default:
             caseOfLoader = .ballDoubleBounce
         }
-        
     }
 }
