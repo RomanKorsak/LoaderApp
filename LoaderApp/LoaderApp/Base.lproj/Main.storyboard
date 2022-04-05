@@ -27,28 +27,47 @@
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fUN-4M-z8a">
                                 <rect key="frame" x="0.0" y="525" width="414" height="216"/>
                             </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RYp-fe-Ovd">
-                                <rect key="frame" x="186" y="44" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OZO-yd-efn">
+                                <rect key="frame" x="20" y="44" width="374" height="130"/>
+                                <color key="backgroundColor" systemColor="systemBrownColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="130" id="afT-ih-U1Q"/>
+                                </constraints>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Ucr-HS-Gam">
+                                <rect key="frame" x="45" y="494" width="324" height="32"/>
+                                <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <segments>
+                                    <segment title="Red"/>
+                                    <segment title="Blue"/>
+                                    <segment title="Green"/>
+                                    <segment title="Orange"/>
+                                    <segment title="Gray"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Ucr-HS-Gam" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="8pp-mi-X32"/>
+                            <constraint firstItem="OZO-yd-efn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Iz9-bU-efh"/>
                             <constraint firstItem="fUN-4M-z8a" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="PTR-XF-ZJm"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OZO-yd-efn" secondAttribute="trailing" constant="20" id="Prp-bl-8dg"/>
+                            <constraint firstItem="fUN-4M-z8a" firstAttribute="top" secondItem="Ucr-HS-Gam" secondAttribute="bottom" id="Qdi-Df-ZlS"/>
                             <constraint firstItem="HWd-dU-IXu" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="UXb-dg-Poh"/>
-                            <constraint firstItem="RYp-fe-Ovd" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Z9S-Vu-DeJ"/>
                             <constraint firstItem="HWd-dU-IXu" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="dqD-8p-F1b"/>
-                            <constraint firstItem="RYp-fe-Ovd" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="iQ8-eQ-07B"/>
                             <constraint firstItem="HWd-dU-IXu" firstAttribute="top" secondItem="fUN-4M-z8a" secondAttribute="bottom" constant="90" id="kza-D8-V8w"/>
+                            <constraint firstItem="OZO-yd-efn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="wQK-cM-bcM"/>
                             <constraint firstItem="fUN-4M-z8a" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yMV-UN-Nz3"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="myLabel" destination="RYp-fe-Ovd" id="sag-q9-tuf"/>
+                        <outlet property="colorsSegmentControl" destination="Ucr-HS-Gam" id="lpX-OW-pzG"/>
                         <outlet property="picker" destination="fUN-4M-z8a" id="eRN-Xt-GdC"/>
+                        <outlet property="textView" destination="OZO-yd-efn" id="xz3-2F-4mq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -57,8 +76,14 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBrownColor">
+            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
