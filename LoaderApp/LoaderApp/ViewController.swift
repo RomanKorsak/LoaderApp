@@ -32,11 +32,12 @@ final class ViewController: UIViewController, NVActivityIndicatorViewable {
         slider.maximumValue = 200
         textView.layer.cornerRadius = 15
     }
-    
+    // MARK: Functions and actions
     @IBAction private func buttonShowAnimation() {
         textFromTextView = textView.text
         
-        startAnimating(CGSize(width: widthAndHeightOfLoader, height: widthAndHeightOfLoader), message: textFromTextView, type: caseOfLoader, color: colorOfLoader, textColor: colorOfLoader) /* ,padding: <#T##CGFloat?#>, displayTimeThreshold: <#T##Int?#>, minimumDisplayTime: <#T##Int?#>, backgroundColor: <#T##UIColor?#>, , fadeInAnimation: <#T##FadeInAnimation?##FadeInAnimation?##(UIView) -> Void#>) */
+        startAnimating(CGSize(width: widthAndHeightOfLoader, height: widthAndHeightOfLoader), message: textFromTextView, type: caseOfLoader, color: colorOfLoader, textColor: colorOfLoader)
+        
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) { [weak self] in
             self?.stopAnimating()
