@@ -12,16 +12,16 @@ import UIKit
 final class ViewController: UIViewController, NVActivityIndicatorViewable {
     let typesOfLoader: [String] = ["ballPulse", "ballSpinFadeLoader", "pacman", "circleStrokeSpin", "ballTrianglePath", "squareSpin"]
     
-    @IBOutlet var picker: UIPickerView!
-    @IBOutlet var textView: UITextView!
-    @IBOutlet var colorsSegmentControl: UISegmentedControl!
-    @IBOutlet var slider: UISlider!
+    @IBOutlet private var picker: UIPickerView!
+    @IBOutlet private var textView: UITextView!
+    @IBOutlet private var colorsSegmentControl: UISegmentedControl!
+    @IBOutlet private var slider: UISlider!
+    @IBOutlet private var sliderValueLabel: UILabel!
     
-    var widthAndHeightOfLoader: Int = 100
-    var caseOfLoader: NVActivityIndicatorType = .ballDoubleBounce
-    var textFromTextView: String = ""
-    var colorOfLoader: UIColor = .red
-    @IBOutlet var sliderValueLabel: UILabel!
+    private var widthAndHeightOfLoader: Int = 100
+    private var caseOfLoader: NVActivityIndicatorType = .ballDoubleBounce
+    private var textFromTextView: String = ""
+    private var colorOfLoader: UIColor = .red
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,9 +30,10 @@ final class ViewController: UIViewController, NVActivityIndicatorViewable {
         colorsSegmentControl.selectedSegmentTintColor = .red
         slider.minimumValue = 100
         slider.maximumValue = 200
+        textView.layer.cornerRadius = 15
     }
     
-    @IBAction func buttonShowAnimation() {
+    @IBAction private func buttonShowAnimation() {
         textFromTextView = textView.text
         
         startAnimating(CGSize(width: widthAndHeightOfLoader, height: widthAndHeightOfLoader), message: textFromTextView, type: caseOfLoader, color: colorOfLoader, textColor: colorOfLoader) /* ,padding: <#T##CGFloat?#>, displayTimeThreshold: <#T##Int?#>, minimumDisplayTime: <#T##Int?#>, backgroundColor: <#T##UIColor?#>, , fadeInAnimation: <#T##FadeInAnimation?##FadeInAnimation?##(UIView) -> Void#>) */
@@ -42,13 +43,13 @@ final class ViewController: UIViewController, NVActivityIndicatorViewable {
         }
     }
     
-    @IBAction func sliderAction() {
+    @IBAction private func sliderAction() {
         let value = Int(round(slider.value))
         widthAndHeightOfLoader = value
         sliderValueLabel.text = "\(widthAndHeightOfLoader)"
     }
     
-    @objc func changeColorOfLoader() {
+    @objc private func changeColorOfLoader() {
         switch colorsSegmentControl.selectedSegmentIndex {
         case 0:
             colorOfLoader = .red
@@ -65,9 +66,9 @@ final class ViewController: UIViewController, NVActivityIndicatorViewable {
         }
         colorsSegmentControl.selectedSegmentTintColor = colorOfLoader
     }
-
-    
 }
+
+// MARK: UIPickerViewDataSource, UIPickerViewDelegate
 
 extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
